@@ -2,19 +2,18 @@ const https = require('https');
 const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
-const models = require('./schemas.js');
 const bodyParser = require('body-parser');
 const routes = require("./routes.js");
 const port = 3000;
 
 var httpsOptions = {
-    key: fs.readFileSync(' <SSL KEY FILE> '),
-    cert: fs.readFileSync(' <SSL CERT FILE> '),
-    passphrase: ' <PASSWORD> '
+    key: fs.readFileSync('/etc/letsencrypt/live/grades.newportml.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/grades.newportml.com/fullchain.pem')
 }
 
 var app = express();
 
+/*
 mongoose.Promise = global.Promise;
 mongoose.connect(' <MONGODB CONNECTION STRING> ', { useMongoClient: true });
 
@@ -24,6 +23,7 @@ db.on('error', console.error.bind(console, 'gradebook-node-backend Mongoose Conn
 db.once('open', () => {
     console.log('gradebook-node-backend connected to MongoDB');
 });
+*/
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
