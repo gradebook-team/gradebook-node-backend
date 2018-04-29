@@ -2,9 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const getConnectionString = (dbName) => {
-    const password = process.env.gradebook_mongodb;
-    return 'mongodb://admin:' + password + '@recordbookcluster0-shard-00-00-l24me.mongodb.net:27017,recordbookcluster0-shard-00-01-l24me.mongodb.net:27017,recordbookcluster0-shard-00-02-l24me.mongodb.net:27017/' + dbName + '?ssl=true&replicaSet=RecordBookCluster0-shard-0&authSource=admin';
+    const connOptions = {
+        useMongoClient: true,
+        user: 'admin',
+        pass: process.env.gradebook_mongodb,
+        dbName: dbName,
+        ssl: true,
+        replicaSet: 'RecordBookCluster0-shard-0',
+        authSource: 'admin'
+    }
+
+    console.log('password used: ' + process.env.gradebook_mongodb);
+    return mongoose.createConnection('mongodb://recordbookcluster0-shard-00-00-l24me.mongodb.net:27017,recordbookcluster0-shard-00-01-l24me.mongodb.net:27017,recordbookcluster0-shard-00-02-l24me.mongodb.net:27017', connOptions);
 };
+
+
 
 var usersConn = mongoose.createConnection(getConnectionString('users'));
 var userKeysConn = mongoose.createConnection(getConnectionString('apiKeys'));
