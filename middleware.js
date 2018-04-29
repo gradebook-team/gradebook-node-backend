@@ -30,7 +30,7 @@ exports.authenticateApiKey = (req, res, next) => {
     });
 };
 
-exports.authenticateCookie = (req, res, next) => {
+exports.authenticateCookies = (req, res, next) => {
 
 };
 
