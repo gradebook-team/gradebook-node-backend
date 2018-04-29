@@ -6,8 +6,8 @@ const getConnectionString = (dbName) => {
     return 'mongodb://admin:' + password + '@recordbookcluster0-shard-00-00-l24me.mongodb.net:27017,recordbookcluster0-shard-00-01-l24me.mongodb.net:27017,recordbookcluster0-shard-00-02-l24me.mongodb.net:27017/' + dbName + '?ssl=true&replicaSet=RecordBookCluster0-shard-0&authSource=admin';
 };
 
-var usersConn = mongoose.createConnection(getConnectionString(users));
-var userKeysConn = mongoose.createConnection(getConnectionString(apiKeys));
+var usersConn = mongoose.createConnection(getConnectionString('users'));
+var userKeysConn = mongoose.createConnection(getConnectionString('apiKeys'));
 
 var StudentSchema = new Schema({
     username: {
