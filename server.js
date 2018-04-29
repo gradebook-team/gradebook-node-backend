@@ -7,13 +7,11 @@ const bodyParser = require('body-parser');
 const routes = require("./routes.js");
 const port = 3000;
 
-
 var httpsOptions = {
     key: fs.readFileSync(' <SSL KEY FILE> '),
     cert: fs.readFileSync(' <SSL CERT FILE> '),
     passphrase: ' <PASSWORD> '
 }
-
 
 var app = express();
 
