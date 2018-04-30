@@ -15,5 +15,5 @@ module.exports = (app) => {
         .post(middleware.authenticateApiKey)
         .post(middleware.authenticateCookies)
         .post(controller.fetchGrades);
-        
+
 }

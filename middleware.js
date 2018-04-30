@@ -1,5 +1,7 @@
 const request = require('request-promise');
 const models = require('./schemas.js');
+const axios = require('axios');
+const JSSoup = require('jssoup').default;
 
 const Students = models.Students;
 const UserKeys = models.UserKeys;
@@ -52,4 +54,15 @@ exports.authenticateCookies = (req, res, next) => {
 exports.authenticateCredentials = (req, res, next) => {
     var username = req.body.username;
     var password = req.body.password;
+
+    var loginPage = axios.get('https://wa-bsd405-psv.edupoint.com/Login_Student_PXP.aspx?regenerateSessionId=True').then((res) => {
+        var soup = new JSSoup(res);
+        var inputs = soup.findAll('input');
+
+        var data = {};
+
+        inputs.forEach((input, index) => {
+            console.log(input);
+        });
+    });
 };

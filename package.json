@@ -5,9 +5,11 @@
   "name": "gradebook-node-backend",
   "version": "0.0.1",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "jssoup": "^0.0.7",
     "mongodb": "^3.0.1",
     "mongoose": "^4.13.9",
     "morgan": "^1.9.0",
