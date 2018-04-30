@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const readPassword = () => {
-    const pwFilePath = '~/.secure/mongopw';
-    return fs.readFileSync(pwFilePath);
+    const pwFilePath = '/root/.secure/mongopw';
+    return fs.readFileSync(pwFilePath, 'utf8');
 }
 
 const getConnection = (dbName) => {
