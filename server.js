@@ -2,6 +2,9 @@ const https = require('https');
 const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
+var morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+
 const bodyParser = require('body-parser');
 const routes = require("./routes.js");
 const port = 3000;
@@ -27,8 +30,11 @@ db.once('open', () => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(morgan('combined'));
+
 routes(app);
 
 var httpsServer = https.createServer(httpsOptions, app);
-httpsServer.listen(port);
+httpsServer.listen(port, '127.0.0.1');
 console.log('gradebook-node-backend is live on port ' + port);

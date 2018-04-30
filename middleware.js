@@ -1,5 +1,4 @@
 const request = require('request-promise');
-
 const models = require('./schemas.js');
 
 const Students = models.Students;
@@ -31,9 +30,18 @@ exports.authenticateApiKey = (req, res, next) => {
 };
 
 exports.authenticateCookies = (req, res, next) => {
+    var cookies = req.cookies;
+    var username = cookies.username;
+    var token = cookies.token;
 
+    Students.findOne({ username: username }, (err, student) => {
+        if (err || student == null || student.token != token) {
+
+        }
+    })
 };
 
 exports.authenticateCredentials = (req, res, next) => {
-
+    var username = req.body.username;
+    var password = req.body.password;
 };
