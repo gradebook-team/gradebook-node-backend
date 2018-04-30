@@ -1,25 +1,32 @@
+const fs = require('fs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const getConnectionString = (dbName) => {
+const readPassword = () => {
+    const pwFilePath = '~/.secure/mongopw';
+    return fs.readFileSync(pwFilePath);
+}
+
+const getConnection = (dbName) => {
+    const pw = readPassword();
     const connOptions = {
         useMongoClient: true,
         user: 'admin',
-        pass: process.env.gradebook_mongodb,
+        pass: pw,
         dbName: dbName,
         ssl: true,
         replicaSet: 'RecordBookCluster0-shard-0',
         authSource: 'admin'
     }
 
-    console.log('password used: ' + process.env.gradebook_mongodb);
+    console.log('password used: ' + pw);
     return mongoose.createConnection('mongodb://recordbookcluster0-shard-00-00-l24me.mongodb.net:27017,recordbookcluster0-shard-00-01-l24me.mongodb.net:27017,recordbookcluster0-shard-00-02-l24me.mongodb.net:27017', connOptions);
 };
 
 
 
-var usersConn = mongoose.createConnection(getConnectionString('users'));
-var userKeysConn = mongoose.createConnection(getConnectionString('apiKeys'));
+var usersConn = getConnection('users');
+var userKeysConn = getConnection('apiKeys');
 
 var StudentSchema = new Schema({
     username: {
