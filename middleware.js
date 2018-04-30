@@ -36,9 +36,17 @@ exports.authenticateCookies = (req, res, next) => {
 
     Students.findOne({ username: username }, (err, student) => {
         if (err || student == null || student.token != token) {
-
+            res.status(401).json({
+                "status": "failure",
+                "error": "Invalid user/token"
+            });
+            return;
         }
-    })
+
+        res.locals.username = username;
+        res.locals.token = token;
+        next();
+    });
 };
 
 exports.authenticateCredentials = (req, res, next) => {
