@@ -52,10 +52,12 @@ exports.authenticateCookies = (req, res, next) => {
 };
 
 exports.authenticateCredentials = (req, res, next) => {
+    console.log('authenticating credentials');
     var username = req.body.username;
     var password = req.body.password;
 
     var loginPage = axios.get('https://wa-bsd405-psv.edupoint.com/Login_Student_PXP.aspx?regenerateSessionId=True').then((res) => {
+        console.log('got login page');
         var soup = new JSSoup(res);
         var inputs = soup.findAll('input');
 
@@ -64,5 +66,6 @@ exports.authenticateCredentials = (req, res, next) => {
         inputs.forEach((input, index) => {
             console.log(input);
         });
+        next();
     });
 };
