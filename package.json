@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "start": "pm2 start server.js"
   },
   "name": "gradebook-node-backend",
   "version": "0.0.1",
