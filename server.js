@@ -1,8 +1,9 @@
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
-var morgan = require('morgan');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const bodyParser = require('body-parser');
@@ -31,10 +32,16 @@ db.once('open', () => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 routes(app);
 
+/*
 var httpsServer = https.createServer(httpsOptions, app);
 httpsServer.listen(port, '127.0.0.1');
-console.log('gradebook-node-backend is live on port ' + port);
+*/
+
+app.listen(port, '127.0.0.1', () => {
+    console.log('gradebook-node-backend is live on port ' + port);
+});
+
